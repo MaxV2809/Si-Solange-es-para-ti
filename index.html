@@ -37,7 +37,7 @@
             position: absolute;
             width: 700px;
             height: 700px;
-            display: none; /* Se oculta hasta dar play */
+            display: none;
         }
 
         .love-text {
@@ -60,7 +60,7 @@
 </head>
 <body>
 
-    <button id="btn-play">Ver con música 🎵</button>
+    <button id="btn-play">Ver con música</button>
 
     <div class="container" id="heart-container"></div>
 
@@ -98,9 +98,9 @@
         }
 
         btn.addEventListener('click', () => {
-            btn.style.display = 'none'; // Quitar botón
-            container.style.display = 'block'; // Mostrar corazón
-            musica.play(); // Iniciar música
+            btn.style.display = 'none';
+            container.style.display = 'block';
+            musica.play();
             crearCorazon();
         });
     </script>
