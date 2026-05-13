@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>cCorazon</title>
+    <style>
+        body {
+            margin: 0;
+            background-color: #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+            font-family: 'Arial', sans-serif;
+        }
+
+        #btn-play {
+            padding: 15px 30px;
+            font-size: 18px;
+            background: transparent;
+            color: #001fbd;
+            border: 2px solid #001fbd;
+            cursor: pointer;
+            border-radius: 25px;
+            transition: 0.3s;
+            z-index: 100;
+        }
+
+        #btn-play:hover {
+            background: #001fbd;
+            color: white;
+            box-shadow: 0 0 20px #001fbd;
+        }
+
+        .container {
+            position: absolute;
+            width: 700px;
+            height: 700px;
+            display: none; /* Se oculta hasta dar play */
+        }
+
+        .love-text {
+            position: absolute;
+            color: #001fbd; 
+            font-size: 13px;
+            font-weight: bold;
+            white-space: nowrap;
+            opacity: 0;
+            text-shadow: 0 0 5px rgba(0, 31, 189, 0.8);
+            animation: drawAndFade 7s infinite;
+        }
+
+        @keyframes drawAndFade {
+            0% { opacity: 0; transform: scale(0.5); }
+            10%, 70% { opacity: 1; transform: scale(1); }
+            85%, 100% { opacity: 0; transform: scale(0.8) translateY(10px); filter: blur(3px); }
+        }
+    </style>
+</head>
+<body>
+
+    <button id="btn-play">Ver con música 🎵</button>
+
+    <div class="container" id="heart-container"></div>
+
+    <audio id="miMusica" loop>
+        <source src="https://www.dropbox.com/scl/fi/8pjmz6mudzqjyl7ski5tp/Josean-Log-Doma-Lyric-Video.mp3?rlkey=hy3yvp32aockem6nsyga7o41i&st=okd6xg2w&dl=1" type="audio/mpeg">
+    </audio>
+
+    <script>
+        const container = document.getElementById('heart-container');
+        const btn = document.getElementById('btn-play');
+        const musica = document.getElementById('miMusica');
+        const totalWords = 100;
+        const textToDisplay = "I love you";
+
+        function crearCorazon() {
+            for (let i = 0; i < totalWords; i++) {
+                const t = (i / totalWords) * Math.PI * 2;
+                const x = 16 * Math.pow(Math.sin(t), 3);
+                const y = -(13 * Math.cos(t) - 5 * Math.cos(2 * t) - 2 * Math.cos(3 * t) - Math.cos(4 * t));
+
+                const span = document.createElement('span');
+                span.className = 'love-text';
+                span.innerText = textToDisplay;
+
+                const scale = 18; 
+                const posX = 350 + x * scale;
+                const posY = 300 + y * scale;
+
+                span.style.left = `${posX}px`;
+                span.style.top = `${posY}px`;
+                span.style.animationDelay = `${i * 0.05}s`;
+
+                container.appendChild(span);
+            }
+        }
+
+        btn.addEventListener('click', () => {
+            btn.style.display = 'none'; // Quitar botón
+            container.style.display = 'block'; // Mostrar corazón
+            musica.play(); // Iniciar música
+            crearCorazon();
+        });
+    </script>
+</body>
+</html>
